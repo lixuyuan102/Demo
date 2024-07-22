@@ -20,10 +20,10 @@
                     <h1 class="post-title">
                         Demo
                     </h1>
-                    <p>
+                    <h3>
                         SF-Speech: Straightened Flow for Zero-Shot Voice Clone on Small-Scale Dataset
 
-					</p>
+					</h3>
                 </div>
 		    
 		    
@@ -31,9 +31,9 @@
                     <h2 class="post-title">
                         Abstract
                     </h2>
-                    <p>
-                        HERE FOR ABSTRACT						
-					</p>
+                    <h4>
+                      Large-scale speech generation models have achieved impressive performance in the zero-shot voice clone tasks relying on large-scale datasets. However, exploring how to achieve zero-shot voice clone with small-scale datasets is also essential. This paper proposes SF-Speech, a novel state-of-the-art voice clone model based on ordinary differential equations and contextual learning. Unlike the previous works, SF-Speech employs a multi-stage generation strategy to obtain the coarse acoustic feature and utilizes this feature to straighten the curved reverse trajectories caused by training the ordinary differential equation model with flow matching. In addition, we find the difference between the local correlations of different types of acoustic features and demonstrate the potential role of 2D convolution in modeling mel-spectrogram features. After training with less than 1000 hours of speech, SF-Speech significantly outperforms those methods based on global speaker embedding or autoregressive large language models. In particular, SF-Speech also shows a significant advantage over VoiceBox, the best-performing ordinary differential equation model, in speech intelligibility (a relative decrease of 22.4% on word error rate) and timbre similarity (a relative improvement of 5.6% on cosine distance) at a similar scale of parameters, and even keep a slight advantage when the parameters of VoiceBox are tripled. Audio samples are available at the <a href = "https://lixuyuan102.github.io/Demo/">demo page </a>.						
+                    </h4>
                 </div>
 					
 				
@@ -54,9 +54,9 @@
                       Test Case A (Zero-Shot Text to Speech)
                     </h2>
 			
-					<h3 class="post-meta" id="u2s">
+					<p>
                   The evaluation for VoiceBox, YourTTS, VALL-E, and SF-Speech. VoiceBox-S, VoiceBox and SF-Speech use the same duration model.
-                  </h3>
+                  </p>
                   <table class="table">
 
              
@@ -504,9 +504,9 @@
                             Test Case B (Speech Reconstruction)
                         </h2>
                         
-              <h3 class="post-meta" id="u2s">
+              <p>
                           The evaluation includes the use of VoiceBox-S, VoiceBox and SF-Speech. We masked the middle 70% for each audio and reconstruct the masked part.
-                        </h3>
+                        </p>
 
                         <table class="table">
                           <tbody>
