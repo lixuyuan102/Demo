@@ -21,7 +21,7 @@
                         Demo
                     </h1>
                     <h3>
-                        SF-Speech: Straightened Flow for Zero-Shot Voice Clone on Small-Scale Dataset
+                        SF-Speech: Straightened Flow for Zero-Shot Voice Clone
 
 					</h3>
                 </div>
@@ -32,7 +32,7 @@
                         Abstract
                     </h2>
                     <h4>
-                      Large-scale speech generation models have achieved impressive performance in the zero-shot voice clone tasks relying on large-scale datasets. However, exploring how to achieve zero-shot voice clone with small-scale datasets is also essential. This paper proposes SF-Speech, a novel state-of-the-art voice clone model based on ordinary differential equations and contextual learning. Unlike the previous works, SF-Speech employs a multi-stage generation strategy to obtain the coarse acoustic feature and utilizes this feature to straighten the curved reverse trajectories caused by training the ordinary differential equation model with flow matching. In addition, we find the difference between the local correlations of different types of acoustic features and demonstrate the potential role of 2D convolution in modeling mel-spectrogram features. After training with less than 1000 hours of speech, SF-Speech significantly outperforms those methods based on global speaker embedding or autoregressive large language models. In particular, SF-Speech also shows a significant advantage over VoiceBox, the best-performing ordinary differential equation model, in speech intelligibility (a relative decrease of 22.4% on word error rate) and timbre similarity (a relative improvement of 5.6% on cosine distance) at a similar scale of parameters, and even keep a slight advantage when the parameters of VoiceBox are tripled. Audio samples are available at the <a href = "https://lixuyuan102.github.io/Demo/">demo page </a>.						
+                      Recently, neural ordinary differential equations (ODE) models trained with flow matching have achieved impressive performance on the zero-shot voice clone task. Nevertheless, postulating standard Gaussian noise as the initial distribution of ODE gives rise to numerous intersections within the fitted targets of flow matching, which presents challenges to model training and enhances the curvature of the learned generated trajectories. These curved trajectories restrict the capacity of ODE models for generating desirable samples with a few steps. This paper proposes SF-Speech, a novel voice clone model based on ODE and in-context learning. Unlike the previous works, SF-Speech adopts a lightweight multi-stage module to generate a more deterministic initial distribution for ODE. Without introducing any additional loss function, we effectively straighten the curved reverse trajectories of the ODE model by jointly training it with the proposed module. Experiment results on datasets of various scales show that SF-Speech outperforms the state-of-the-art zero-shot TTS methods and requires only a quarter of the solver steps, resulting in a generation speed approximately 3.7 times that of Voicebox and E2 TTS. Audio samples are available at the <a href = "https://lixuyuan102.github.io/Demo/">demo page </a>.						
                     </h4>
                 </div>
 					
@@ -41,6 +41,394 @@
                     <h2 class="post-title">
                         Zero-Shot Voice Clone
                     </h2>
+
+                    <table class="table">
+                      <tbody>
+                          
+                          <tr>
+                          </tr>
+                          
+                      </tbody>
+                  </table>
+
+                    <h2 class="post-meta" id="u2s">
+                      Test Case A (ODE models under Different NFEs.)
+                    </h2>
+          
+          <p>
+             F5-TTS, E2 TTS, VoiceBox, and SF-Speech trained using Emilia.
+                  </p>
+                  <table class="table">
+          
+             
+                         
+                  </tr>
+                <tbody>
+                          
+                          
+                          <tr>
+          
+                              <th style="text-align:center;"><font size=4>   Model</th>
+                              <th style="text-align:center;"><font size=4>   2</th>
+                              <th style="text-align:center;"><font size=4>   4</th>
+                              <th style="text-align:center;"><font size=4>   32</th>
+                        
+                    
+                          </tr>
+          <!-- single sentence -->
+                                                            </tr>
+                             <th colspan=5><font size=4><h9></h9></th>
+                         </tr>
+                          <!-- single sentence -->
+          
+                          <tr>
+                            
+                            <td>
+                                F5-TTS
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/f52.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/f54.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/f532.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            
+                            <td>
+                                E2 TTS
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/e22.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/e24.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/e232.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            
+                            <td>
+                                VoiceBox
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/vb2.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/vb4.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/vb32.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            
+                            <td>
+                                SF-Speech
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/sf2.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/sf4.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                            <td>
+                              <audio controls>
+                                <source src="./nfe/sf32.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+                          </tr>
+
+
+
+
+
+                          <table class="table">
+                            <tbody>
+                                
+                                <tr>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+              <hr>
+    
+    
+              <h2 class="post-meta" id="u2s">
+                Test Case B (English Zero-Shot TTS Results with Large-scale Training Dataset.)
+              </h2>
+    
+    <p>
+            VoiceBox, E2 TTS, and F5-TTS inference with a NFEs of 32, while SF-Speech uses a NFEs of 8.
+            </p>
+            <table class="table">
+    
+       
+                   
+            </tr>
+          <tbody>
+                    
+                    
+                    <tr>
+    
+                        <th></th>
+                        <th style="text-align:center;"><font size=4>   Reference</th>
+                            <th style="text-align:center;"><font size=4>   Text</th>
+                            <th style="text-align:center;"><font size=4>   Voicebox</th>
+                            <th style="text-align:center;"><font size=4>   E2 TTS</th>
+                            <th style="text-align:center;"><font size=4>   F5-TTS</th>
+                            <th style="text-align:center;"><font size=4>   SF-Speech</th>
+    
+                  
+              
+                    </tr>
+    <!-- single sentence -->
+                                                      </tr>
+                       <th colspan=5><font size=4><h9></h9></th>
+                   </tr>
+                    <!-- single sentence -->
+    
+                    <tr>
+                      
+                       <th style="text-align:right;"> 1.</th>
+                      <td>
+                        <audio controls>
+                          <source src="./SFEN/test_6_ref.wav" type="audio/wav" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </td>
+    
+                      <td>
+                        But in such a case, Miss Milner's election of a husband shall not direct mine.
+                      </td>
+                      <td>
+                        <audio controls>
+                          <source src="./VBEN/test_6.wav" type="audio/wav" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </td>
+                      <td>
+                        <audio controls>
+                          <source src="./E2EN/test_6.wav" type="audio/wav" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </td>
+                      <td>
+                        <audio controls>
+                          <source src="./F5EN/test_6.wav" type="audio/wav" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </td>
+                      <td>
+                        <audio controls>
+                          <source src="./SFEN/test_6.wav" type="audio/wav" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </td>
+                    </tr>
+    
+               <tr>
+                      
+                <th style="text-align:right;"> 2.</th>
+               <td>
+                 <audio controls>
+                   <source src="./SFEN/test_10_ref.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+    
+               <td>
+                Again he searched his own thoughts; nor ineffectually as before.
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./VBEN/test_10.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./E2EN/test_10.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./F5EN/test_10.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./SFEN/test_10.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+             </tr>
+    
+             <tr>
+                      
+              <th style="text-align:right;"> 3.</th>
+             <td>
+               <audio controls>
+                 <source src="./SFEN/test_68_ref.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+    
+             <td>
+              Yea, his honourable worship is within. But he hath a godly minister or two with him, and likewise a leech.
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./VBEN/test_68.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./E2EN/test_68.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./F5EN/test_68.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./SFEN/test_68.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+           </tr>
+
+       <th style="text-align:right;"> 4.</th>
+       <td>
+         <audio controls>
+           <source src="./SFEN/test_30_ref.wav" type="audio/wav" />
+           Your browser does not support the audio element.
+         </audio>
+       </td>
+
+       <td>
+        A story! cried the children, drawing a little fat man towards the Tree.
+       </td>
+       <td>
+         <audio controls>
+           <source src="./VBEN/test_30.wav" type="audio/wav" />
+           Your browser does not support the audio element.
+         </audio>
+       </td>
+       <td>
+         <audio controls>
+           <source src="./E2EN/test_30.wav" type="audio/wav" />
+           Your browser does not support the audio element.
+         </audio>
+       </td>
+       <td>
+         <audio controls>
+           <source src="./F5EN/test_30.wav" type="audio/wav" />
+           Your browser does not support the audio element.
+         </audio>
+       </td>
+       <td>
+         <audio controls>
+           <source src="./SFEN/test_30.wav" type="audio/wav" />
+           Your browser does not support the audio element.
+         </audio>
+       </td>
+     </tr>
+     <th style="text-align:right;"> 5.</th>
+     <td>
+       <audio controls>
+         <source src="./SFEN/test_81_ref.wav" type="audio/wav" />
+         Your browser does not support the audio element.
+       </audio>
+     </td>
+
+     <td>
+      You gave me double- five, I want double- nine.... Hallo, is that you, Horatio? Hamlet speaking.
+     </td>
+     <td>
+       <audio controls>
+         <source src="./VBEN/test_81.wav" type="audio/wav" />
+         Your browser does not support the audio element.
+       </audio>
+     </td>
+     <td>
+       <audio controls>
+         <source src="./E2EN/test_81.wav" type="audio/wav" />
+         Your browser does not support the audio element.
+       </audio>
+     </td>
+     <td>
+       <audio controls>
+         <source src="./F5EN/test_81.wav" type="audio/wav" />
+         Your browser does not support the audio element.
+       </audio>
+     </td>
+     <td>
+       <audio controls>
+         <source src="./SFEN/test_81.wav" type="audio/wav" />
+         Your browser does not support the audio element.
+       </audio>
+     </td>
+   </tr>
+                  </tbody>
+
+
+
+
+
+
+
+
+
                     <table class="table">
                         <tbody>
                             
@@ -50,12 +438,256 @@
                         </tbody>
                     </table>
 					<hr>
-                           	<h2 class="post-meta" id="u2s">
-                      Test Case A (Zero-Shot Text to Speech)
-                    </h2>
-			
+
+
+          <h2 class="post-meta" id="u2s">
+            Test Case C (Chinese Zero-Shot TTS Results with Large-scale Training Dataset.)
+          </h2>
+
+<p>
+        VoiceBox, E2 TTS, and F5-TTS inference with a NFEs of 32, while SF-Speech uses a NFEs of 8.
+        </p>
+        <table class="table">
+
+   
+               
+        </tr>
+      <tbody>
+                
+                
+                <tr>
+
+                    <th></th>
+                    <th style="text-align:center;"><font size=4>   Reference</th>
+                        <th style="text-align:center;"><font size=4>   Text</th>
+                        <th style="text-align:center;"><font size=4>   Voicebox</th>
+                        <th style="text-align:center;"><font size=4>   E2 TTS</th>
+                        <th style="text-align:center;"><font size=4>   F5-TTS</th>
+                        <th style="text-align:center;"><font size=4>   SF-Speech</th>
+
+              
+          
+                </tr>
+<!-- single sentence -->
+                                                  </tr>
+                   <th colspan=5><font size=4><h9></h9></th>
+               </tr>
+                <!-- single sentence -->
+
+                <tr>
+                  
+                   <th style="text-align:right;"> 1.</th>
+                  <td>
+                    <audio controls>
+                      <source src="./our_tts/5_2824_20170702000751to5_2197_20170630184022_ref.wav" type="audio/wav" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </td>
+
+                  <td>
+                      谁能告诉我，蔡依林的新歌到底被谁盗了。
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="./VBZH/test_200.wav" type="audio/wav" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="./E2ZH/test_200.wav" type="audio/wav" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="./F5ZH/test_200.wav" type="audio/wav" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </td>
+                  <td>
+                    <audio controls>
+                      <source src="./SFZH/test_200.wav" type="audio/wav" />
+                      Your browser does not support the audio element.
+                    </audio>
+                  </td>
+                </tr>
+
+               <tr>
+                  
+                <th style="text-align:right;"> 2.</th>
+               <td>
+                 <audio controls>
+                   <source src="./our_tts/5_1932_20170628225659to38_5731_20170915091513_ref.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+
+               <td>
+                但是我妈他们，住在我家北边的宾馆里。
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./VBZH/test_196.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./E2ZH/test_196.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./F5ZH/test_196.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+               <td>
+                 <audio controls>
+                   <source src="./SFZH/test_196.wav" type="audio/wav" />
+                   Your browser does not support the audio element.
+                 </audio>
+               </td>
+             </tr>
+             <tr>
+                  
+              <th style="text-align:right;"> 3.</th>
+             <td>
+               <audio controls>
+                 <source src="./our_tts/5_2595_20170701150152to5_2641_20170701185451_ref.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+
+             <td>
+              内蒙古呼伦贝尔市阿荣旗的天气。
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./VBZH/test_205.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./E2ZH/test_205.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./F5ZH/test_205.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+             <td>
+               <audio controls>
+                 <source src="./SFZH/test_205.wav" type="audio/wav" />
+                 Your browser does not support the audio element.
+               </audio>
+             </td>
+           </tr>
+
+           <tr>
+                  
+            <th style="text-align:right;"> 4.</th>
+           <td>
+             <audio controls>
+               <source src="./our_tts/5_3039_20170702145641to5_2296_20170701164037_ref.wav" type="audio/wav" />
+               Your browser does not support the audio element.
+             </audio>
+           </td>
+
+           <td>
+            你把发票的名称发到我手机上。
+           </td>
+           <td>
+             <audio controls>
+               <source src="./VBZH/test_228.wav" type="audio/wav" />
+               Your browser does not support the audio element.
+             </audio>
+           </td>
+           <td>
+             <audio controls>
+               <source src="./E2ZH/test_228.wav" type="audio/wav" />
+               Your browser does not support the audio element.
+             </audio>
+           </td>
+           <td>
+             <audio controls>
+               <source src="./F5ZH/test_228.wav" type="audio/wav" />
+               Your browser does not support the audio element.
+             </audio>
+           </td>
+           <td>
+             <audio controls>
+               <source src="./SFZH/test_228.wav" type="audio/wav" />
+               Your browser does not support the audio element.
+             </audio>
+           </td>
+         </tr>
+
+         <tr>
+                  
+          <th style="text-align:right;"> 5.</th>
+         <td>
+           <audio controls>
+             <source src="./our_tts/38_5716_20170914202426to38_5723_20170915094323_ref.wav" type="audio/wav" />
+             Your browser does not support the audio element.
+           </audio>
+         </td>
+
+         <td>
+          除了自命不凡和爱是一种幸福。
+         </td>
+         <td>
+           <audio controls>
+             <source src="./VBZH/test_170.wav" type="audio/wav" />
+             Your browser does not support the audio element.
+           </audio>
+         </td>
+         <td>
+           <audio controls>
+             <source src="./E2ZH/test_170.wav" type="audio/wav" />
+             Your browser does not support the audio element.
+           </audio>
+         </td>
+         <td>
+           <audio controls>
+             <source src="./F5ZH/test_170.wav" type="audio/wav" />
+             Your browser does not support the audio element.
+           </audio>
+         </td>
+         <td>
+           <audio controls>
+             <source src="./SFZH/test_170.wav" type="audio/wav" />
+             Your browser does not support the audio element.
+           </audio>
+         </td>
+       </tr>
+
+       <tr>
+
+              </tbody>
+
+
+              <table class="table">
+                <tbody>
+                    
+                    
+                </tbody>
+            </table>
+
+
+
+              <h2 class="post-meta" id="u2s">
+                Test Case D (Chinese Zero-Shot TTS Results with Small-scale Training Dataset)
+              </h2>
+
 					<p>
-                  The evaluation for VoiceBox, YourTTS, VALL-E, and SF-Speech. VoiceBox-S, VoiceBox and SF-Speech use the same duration model.
+                  The evaluation for VoiceBox, YourTTS, VALL-E, SimpleSpeech2, and SF-Speech-S. SimpleSpeech2 is trained using 4K hours of Chinese data from WenetSpeech, while others are trained using MagicData. VoiceBox-S, VoiceBox and SF-Speech-S use the same duration model.
                   </p>
                   <table class="table">
 
@@ -73,7 +705,8 @@
                                   <th style="text-align:center;"><font size=4>   YourTTS</th>
                                   <th style="text-align:center;"><font size=4>   VoiceBox-S</th>
                                   <th style="text-align:center;"><font size=4>   VoiceBox</th>
-                                  <th style="text-align:center;"><font size=4>   SF-Speech</th>
+                                  <th style="text-align:center;"><font size=4>   SF-Speech-S</th>
+                                  <th style="text-align:center;"><font size=4>   SimpleSpeech2</th>
                                   <th style="text-align:center;"><font size=4>   VALL-E</th>
 
                         
@@ -116,66 +749,33 @@
                                 Your browser does not support the audio element.
                               </audio>
                             </td>
-     <td>
+                            
+                            <td>
                               <audio controls>
                                 <source src="./our_tts/5_2824_20170702000751to5_2197_20170630184022_g.wav" type="audio/wav" />
                                 Your browser does not support the audio element.
                               </audio>
                             </td>
+                          
+                            <td>
+                            <audio controls>
+                              <source src="./ss2/test_200.wav" type="audio/wav" />
+                              Your browser does not support the audio element.
+                            </audio>
+                          </td>
+
                             <td>
                             <audio controls>
                               <source src="./valle_tts/5_2824_20170702000751to5_2197_20170630184022_g.wav" type="audio/wav" />
                               Your browser does not support the audio element.
                             </audio>
                           </td>
-    
+                        </tr>
                                                         <!-- single sentence -->
 
+                          
                           <tr>
-
                             <th style="text-align:right;"> 2.</th>
-                            <td>
-                                <audio controls>
-                                <source src="./our_tts/5_1812_20170628152826to5_1812_20170628143709_ref.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td>
-
-                            <td>
-                                来一首真心英雄。
-                            </td>
-                            <td>
-                              <audio controls>
-                              <source src="./yourtts_tts/5_1812_20170628152826to5_1812_20170628143709_g.wav" type="audio/wav" />
-                              Your browser does not support the audio element.
-                              </audio>
-                          </td>
-                            <td>
-                                <audio controls>
-                                <source src="./voicebos_tts/5_1812_20170628152826to5_1812_20170628143709_g.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td>
-                            <td>
-                                <audio controls>
-                                <source src="./voicebox_tts/5_1812_20170628152826to5_1812_20170628143709_g.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td>
-                <td>
-                                <audio controls>
-                                <source src="./our_tts/5_1812_20170628152826to5_1812_20170628143709_g.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td>  
-                            <td>     
-                            <audio controls>
-                              <source src="./valle_tts/5_1812_20170628152826to5_1812_20170628143709_g.wav" type="audio/wav" />
-                              Your browser does not support the audio element.
-                              </audio>
-                          </td>      
-                          <tr>
-                            <th style="text-align:right;"> 3.</th>
                             <td>
                                 <audio controls>
                                 <source src="./our_tts/5_1932_20170628225659to38_5731_20170915091513_ref.wav" type="audio/wav" />
@@ -210,6 +810,14 @@
                                 Your browser does not support the audio element.
                                 </audio>
                             </td> 
+
+                            <td>
+                              <audio controls>
+                                <source src="./ss2/test_196.wav" type="audio/wav" />
+                                Your browser does not support the audio element.
+                              </audio>
+                            </td>
+
                             <td>
                               <audio controls>
                               <source src="./valle_tts/5_1932_20170628225659to38_5731_20170915091513_g.wav" type="audio/wav" />
@@ -220,7 +828,7 @@
                           
                                 <!-- single sentence -->
                                 <tr>
-                                  <th style="text-align:right;"> 4.</th>
+                                  <th style="text-align:right;"> 3.</th>
                                   <td>
                                       <audio controls>
                                       <source src="./our_tts/5_2595_20170701150152to5_2641_20170701185451_ref.wav" type="audio/wav" />
@@ -254,7 +862,13 @@
                                       <source src="./our_tts/5_2595_20170701150152to5_2641_20170701185451_g.wav" type="audio/wav" />
                                       Your browser does not support the audio element.
                                       </audio>
-                                  </td>           
+                                  </td>     
+                                  <td>
+                                    <audio controls>
+                                      <source src="./ss2/test_205.wav" type="audio/wav" />
+                                      Your browser does not support the audio element.
+                                    </audio>
+                                  </td>      
                                   <td>
                                     <audio controls>
                                     <source src="./valle_tts/5_2595_20170701150152to5_2641_20170701185451_g.wav" type="audio/wav" />
@@ -264,7 +878,7 @@
 
                           <!-- single sentence -->
                           <tr>
-                              <th style="text-align:right;"> 5.</th>
+                              <th style="text-align:right;"> 4.</th>
                               <td>
                                   <audio controls>
                                   <source src="./our_tts/5_3039_20170702145641to5_2296_20170701164037_ref.wav" type="audio/wav" />
@@ -298,6 +912,12 @@
                                   <source src="./our_tts/5_3039_20170702145641to5_2296_20170701164037_g.wav" type="audio/wav" />
                                   Your browser does not support the audio element.
                                   </audio>
+                              </td>
+                              <td>
+                                <audio controls>
+                                  <source src="./ss2/test_228.wav" type="audio/wav" />
+                                  Your browser does not support the audio element.
+                                </audio>
                               </td>   
                               <td>
                                 <audio controls>
@@ -308,7 +928,7 @@
 
                           <!-- single sentence -->
                           <tr>
-                              <th style="text-align:right;"> 6.</th>
+                              <th style="text-align:right;"> 5.</th>
                               <td>
                                   <audio controls>
                                   <source src="./our_tts/38_5716_20170914202426to38_5723_20170915094323_ref.wav" type="audio/wav" />
@@ -342,146 +962,19 @@
                                   <source src="./our_tts/38_5716_20170914202426to38_5723_20170915094323_g.wav" type="audio/wav" />
                                   Your browser does not support the audio element.
                                   </audio>
-                              </td>          
+                              </td>     
+                              <td>
+                                <audio controls>
+                                  <source src="./ss2/test_170.wav" type="audio/wav" />
+                                  Your browser does not support the audio element.
+                                </audio>
+                              </td>     
                               <td>
                                 <audio controls>
                                 <source src="./valle_tts/38_5716_20170914202426to38_5723_20170915094323_g.wav" type="audio/wav" />
                                 Your browser does not support the audio element.
                                 </audio>
                             </td>                                                                                         
-
-
-                            <tr>
-                              <th style="text-align:right;"> 7.</th>
-                              <td>
-                                  <audio controls>
-                                  <source src="./our_tts/38_5716_20170914202446to38_5741_20170914205403_ref.wav" type="audio/wav" />
-                                  Your browser does not support the audio element.
-                                  </audio>
-                              </td>
-
-                              <td>
-                                  听音乐不错休闲哈嘻。
-                              </td>
-                              <td>
-                                <audio controls>
-                                <source src="./yourtts_tts/38_5716_20170914202446to38_5741_20170914205403_g.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td>
-                              <td>
-                                  <audio controls>
-                                  <source src="./voicebos_tts/38_5716_20170914202446to38_5741_20170914205403_g.wav" type="audio/wav" />
-                                  Your browser does not support the audio element.
-                                  </audio>
-                              </td>
-                              <td>
-                                  <audio controls>
-                                  <source src="./voicebox_tts/38_5716_20170914202446to38_5741_20170914205403_g.wav" type="audio/wav" />
-                                  Your browser does not support the audio element.
-                                  </audio>
-                              </td>
-                  <td>
-                                  <audio controls>
-                                  <source src="./our_tts/38_5716_20170914202446to38_5741_20170914205403_g.wav" type="audio/wav" />
-                                  Your browser does not support the audio element.
-                                  </audio>
-                              </td> 
-                              <td>
-                                <audio controls>
-                                <source src="./valle_tts/38_5716_20170914202446to38_5741_20170914205403_g.wav" type="audio/wav" />
-                                Your browser does not support the audio element.
-                                </audio>
-                            </td> 
-
-                                  <!-- single sentence -->
-                                  <tr>
-                                      <th style="text-align:right;"> 8.</th>
-                                      <td>
-                                          <audio controls>
-                                          <source src="./our_tts/38_5724_20170915100228to38_5814_20170916131843_ref.wav" type="audio/wav" />
-                                          Your browser does not support the audio element.
-                                          </audio>
-                                      </td>
-      
-                                      <td>
-                                          但我对他没感觉。
-                                      </td>
-                                      <td>
-                                          <audio controls>
-                                          <source src="./yourtts_tts/38_5724_20170915100228to38_5814_20170916131843_g.wav" type="audio/wav" />
-                                          Your browser does not support the audio element.
-                                          </audio>
-                                      </td>
-                                      <td>
-                                        <audio controls>
-                                        <source src="./voicebos_tts/38_5724_20170915100228to38_5814_20170916131843_g.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>
-                                      <td>
-                                          <audio controls>
-                                          <source src="./voicebox_tts/38_5724_20170915100228to38_5814_20170916131843_g.wav" type="audio/wav" />
-                                          Your browser does not support the audio element.
-                                          </audio>
-                                      </td>
-                          <td>
-                                          <audio controls>
-                                          <source src="./our_tts/38_5724_20170915100228to38_5814_20170916131843_g.wav" type="audio/wav" />
-                                          Your browser does not support the audio element.
-                                          </audio>
-                                      </td>       
-                                      <td>
-                                        <audio controls>
-                                        <source src="./valle_tts/38_5724_20170915100228to38_5814_20170916131843_g.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>   
-          
-
-                                  <!-- single sentence -->
-                                  <tr>
-                                    <th style="text-align:right;"> 9.</th>
-                                    <td>
-                                        <audio controls>
-                                        <source src="./our_tts/38_5723_20170914200322to38_5744_20170915102006_ref.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>
-    
-                                    <td>
-                                        播放你偷走了我的心。
-                                    </td>
-                                    <td>
-                                      <audio controls>
-                                      <source src="./yourtts_tts/38_5723_20170914200322to38_5744_20170915102006_g.wav" type="audio/wav" />
-                                      Your browser does not support the audio element.
-                                      </audio>
-                                  </td>
-                                    <td>
-                                        <audio controls>
-                                        <source src="./voicebos_tts/38_5723_20170914200322to38_5744_20170915102006_g.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>
-                                    <td>
-                                        <audio controls>
-                                        <source src="./voicebox_tts/38_5723_20170914200322to38_5744_20170915102006_g.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>
-                        <td>
-                                        <audio controls>
-                                        <source src="./our_tts/38_5723_20170914200322to38_5744_20170915102006_g.wav" type="audio/wav" />
-                                        Your browser does not support the audio element.
-                                        </audio>
-                                    </td>               
-                                    <td>
-                                      <audio controls>
-                                      <source src="./valle_tts/38_5723_20170914200322to38_5744_20170915102006_g.wav" type="audio/wav" />
-                                      Your browser does not support the audio element.
-                                      </audio>
-                                  </td>  
 
                 </tbody>
                  
@@ -501,11 +994,11 @@
                       </h3>
     
                         <h2 class="post-meta" id="u2s">
-                            Test Case B (Speech Reconstruction)
+                            Test Case E (Speech Reconstruction Results)
                         </h2>
                         
               <p>
-                          The evaluation includes the use of VoiceBox-S, VoiceBox and SF-Speech. We masked the middle 70% for each audio and reconstruct the masked part.
+                          The evaluation includes the use of VoiceBox-S, VoiceBox and SF-Speech-S. We masked the middle 70% for each audio and reconstruct the masked part.
                         </p>
 
                         <table class="table">
@@ -516,50 +1009,10 @@
                               <th style="text-align:center;"><font size=4>   Original</th>
                               <th style="text-align:center;"><font size=4>   VoiceBox-S</th>
                               <th style="text-align:center;"><font size=4>   VoiceBox</th>
-                              <th style="text-align:center;"><font size=4>   SF-Speech</th>
+                              <th style="text-align:center;"><font size=4>   SF-Speech-S</th>
                           </tr>
-                          <tr>
+                           <tr>
                             <th style="text-align:right;">1.</th>                              <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2525_20170701154059_ref.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                            <audio controls>
-                              <source src="./voicebos_sr/5_2525_20170701154059_g.wav" type="audio/wav" /> 
-                            </audio>
-                          </td>
-                           <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2525_20170701154059_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                             <audio controls>
-                               <source src="./our_sr/5_2525_20170701154059_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td> </tr>                            <tr>
-                            <th style="text-align:right;">2.</th>                              <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/38_5723_20170914202655_ref.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                            <audio controls>
-                              <source src="./voicebos_sr/38_5723_20170914202655_g.wav" type="audio/wav" /> 
-                            </audio>
-                          </td>
-                           <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/38_5723_20170914202655_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                             <audio controls>
-                               <source src="./our_sr/38_5723_20170914202655_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td> </tr>                            <tr>
-                            <th style="text-align:right;">3.</th>                              <td>
                              <audio controls>
                                <source src="./voicebox_sr/38_5727_20170914195343_ref.wav" type="audio/wav" /> 
                              </audio>
@@ -580,7 +1033,7 @@
                              </audio>
                            </td> </tr>              
                            <tr>
-                            <th style="text-align:right;">4.</th>                              <td>
+                            <th style="text-align:right;">2.</th>                              <td>
                              <audio controls>
                                <source src="./voicebox_sr/38_5754_20170915143652_ref.wav" type="audio/wav" /> 
                              </audio>
@@ -600,7 +1053,7 @@
                                <source src="./our_sr/38_5754_20170915143652_g.wav" type="audio/wav" /> 
                              </audio>
                            </td> </tr>                               <tr>
-                            <th style="text-align:right;">5.</th>                              <td>
+                            <th style="text-align:right;">3.</th>                              <td>
                              <audio controls>
                                <source src="./voicebox_sr/5_2197_20170630085721_ref.wav" type="audio/wav" /> 
                              </audio>
@@ -620,7 +1073,7 @@
                                <source src="./our_sr/5_2197_20170630085721_g.wav" type="audio/wav" /> 
                              </audio>
                            </td> </tr>                            <tr>
-                            <th style="text-align:right;">6.</th>                              <td>
+                            <th style="text-align:right;">4.</th>                              <td>
                              <audio controls>
                                <source src="./voicebox_sr/5_2399_20170630141936_ref.wav" type="audio/wav" /> 
                              </audio>
@@ -639,69 +1092,7 @@
                              <audio controls>
                                <source src="./our_sr/5_2399_20170630141936_g.wav" type="audio/wav" /> 
                              </audio>
-                           </td> </tr>                            <tr>
-                            <th style="text-align:right;">7.</th>                              <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2595_20170701141539_ref.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                            <audio controls>
-                              <source src="./voicebos_sr/5_2595_20170701141539_g.wav" type="audio/wav" /> 
-                            </audio>
-                          </td>
-                           <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2595_20170701141539_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                             <audio controls>
-                               <source src="./our_sr/5_2595_20170701141539_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td> </tr>                            <tr>
-                            <th style="text-align:right;">8.</th>                              <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2751_20170701195544_ref.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                            <audio controls>
-                              <source src="./voicebos_sr/5_2751_20170701195544_g.wav" type="audio/wav" /> 
-                            </audio>
-                          </td>
-                           <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2751_20170701195544_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                             <audio controls>
-                               <source src="./our_sr/5_2751_20170701195544_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td> </tr>                       <tr>
-                            <th style="text-align:right;">9.</th>                              <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2770_20170701204114_ref.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                            <audio controls>
-                              <source src="./voicebos_sr/5_2770_20170701204114_g.wav" type="audio/wav" /> 
-                            </audio>
-                          </td>
-                           <td>
-                             <audio controls>
-                               <source src="./voicebox_sr/5_2770_20170701204114_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td>
-                           <td>
-                             <audio controls>
-                               <source src="./our_sr/5_2770_20170701204114_g.wav" type="audio/wav" /> 
-                             </audio>
-                           </td> </tr>                         
-                          </tbody>
-                      </table>
+                           </td> </tr>                  
 
 				
 				<div class="post-preview" id="exp">
